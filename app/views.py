@@ -12,6 +12,18 @@ def main():
 @app.route("/hello/<name>")
 def nameroute(name):
     return "Hello " + name
+
+@app.route("/postJob")
+def postJob():
+    return render_template('postJob.html');
+
+@app.route("/distributor")
+def distributor():
+    return render_template('distributorHome.html')
+
+@app.route("/trucker")
+def trucker():
+    return render_template('truckerHome.html')
     
 if __name__ == "__main__":
     #This is set for compabilitity with Cloud9
@@ -29,4 +41,8 @@ def create_account():
     cur = conn.cursor()
     cur.execute('''INSERT INTO users(email, username, password, role) VALUES(%s,%s, %s, %s)''', (input_email, input_user, input_password, role))
     conn.commit()
-    return render_template('index.html')
+    print(role);
+    if role == '1':
+        return render_template('truckerHome.html')
+    else:
+        return render_template('distributorHome.html')
